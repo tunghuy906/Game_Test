@@ -6,7 +6,9 @@ public class CameraFollow : MonoBehaviour
     private Transform target;
 
     [SerializeField]
-    private float smoothSpeed = 5f;
+    private float smoothTime = 0.15f;
+
+    private Vector3 velocity;
 
     private Vector3 offset;
 
@@ -24,10 +26,11 @@ public class CameraFollow : MonoBehaviour
             target.position + offset;
 
         transform.position =
-            Vector3.Lerp(
+            Vector3.SmoothDamp(
                 transform.position,
                 targetPosition,
-                smoothSpeed * Time.deltaTime
+                ref velocity,
+                smoothTime
             );
     }
 
